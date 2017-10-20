@@ -1,4 +1,4 @@
-# _🏥👨‍⚕️💉😷💊 DoctorFindr3000 💊😷💉👨‍⚕️🏥_
+# _🏥👨‍⚕️💉😷💊 DocFindr3000 💊😷💉👨‍⚕️🏥_
 
 #### _Find a doctor to cure your ailment with the DoctorFindr3000, 10/20/2017_
 
@@ -14,7 +14,7 @@
 * ⭐ As a user, I want to be able to see a message to let me know that my search didn't return any results.
 
 ### Setup
-1. Clone the project and cd into super-galactic-age-calculator
+1. Clone the project and cd into doc-findr-3000
 2. `npm install`
 3. `bower install`
 4. `gulp serve`
