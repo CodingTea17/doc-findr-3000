@@ -2,7 +2,11 @@ const apiKey = require('./../.env').apiKey;
 
 export class Doctor {
   constructor() {
-
+    this.names = [];
+    this.addresses = [];
+    this.phone_numbers = [];
+    this.websites = [];
+    this.acceptings = [];
   }
 
   findADoc(query) {
@@ -22,7 +26,19 @@ export class Doctor {
 
     promise.then((response) => {
       let data = JSON.parse(response);
-      console.log(data.data[0].profile.first_name);
+      this.names = [];
+      this.addresses = [];
+      this.phone_numbers = [];
+      this.websites = [];
+      this.acceptings = [];
+      data.data.forEach((doctor) => {
+        this.names.push(doctor.practices[0].name);
+        this.addresses.push(`${doctor.practices[0].visit_address.street} ${doctor.practices[0].visit_address.street2} ${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`);
+        this.phone_numbers.push(doctor.practices[0].phones[0].number);
+        this.websites.push(doctor.practices[0].website);
+        this.acceptings.push(doctor.practices[0].accepts_new_patients)
+        console.log(this.acceptings)
+      });
     }, (error) => {
       $('.showErrors').html(`There was an error processing your request: ${error.message}`);
     });
