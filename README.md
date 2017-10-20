@@ -17,7 +17,8 @@
 1. Clone the project and cd into doc-findr-3000
 2. `npm install`
 3. `bower install`
-4. `gulp serve`
+4. `gulp build`
+5. `gulp serve`
 
 ### Technologies Used
 _HTML, CSS, Bootstrap, Node, Javascript, jQuery, :octocat:_
