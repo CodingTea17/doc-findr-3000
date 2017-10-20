@@ -2,11 +2,7 @@ const apiKey = require('./../.env').apiKey;
 
 export class Doctor {
   constructor() {
-    this.names = [];
-    this.addresses = [];
-    this.phone_numbers = [];
-    this.websites = [];
-    this.acceptings = [];
+
   }
 
   findADoc(query) {
@@ -26,21 +22,27 @@ export class Doctor {
 
     promise.then((response) => {
       let data = JSON.parse(response);
-      this.names = [];
-      this.addresses = [];
-      this.phone_numbers = [];
-      this.websites = [];
-      this.acceptings = [];
-      data.data.forEach((doctor) => {
-        this.names.push(doctor.practices[0].name);
-        this.addresses.push(`${doctor.practices[0].visit_address.street} ${doctor.practices[0].visit_address.street2} ${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`);
-        this.phone_numbers.push(doctor.practices[0].phones[0].number);
-        this.websites.push(doctor.practices[0].website);
-        this.acceptings.push(doctor.practices[0].accepts_new_patients)
-        console.log(this.acceptings)
-      });
+      let website = "";
+      $("#results").html("");
+      if(data.data.length === 0){
+        $("#no-results").html(`No results returned from search. Try another query.`);
+        $("#no-results").show();
+        $("#table-results").hide();
+      } else {
+        $("#table-results").show();
+        data.data.forEach((doctor) => {
+          if(doctor.practices[0].website) {
+            website = `<a href="${doctor.practices[0].website}">Link</a>`
+          } else {
+            website = "N/A"
+          }
+          $("#results").append(`<tr><td>${doctor.profile.first_name} ${doctor.profile.last_name}, ${doctor.profile.title}</td><td>${doctor.practices[0].visit_address.street} ${doctor.practices[0].visit_address.street2} ${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}</td><td>${doctor.practices[0].phones[0].number}</td><td>${website}</td><td>${doctor.practices[0].accepts_new_patients}</td></tr>`);
+          // console.log(this.acceptings)
+        });
+      }
     }, (error) => {
-      $('.showErrors').html(`There was an error processing your request: ${error.message}`);
+      $('#showErrors').html(`There was an error processing your request: ${error.message}`);
+      $("#showErrors").show();
     });
   }
 }
